@@ -7,7 +7,7 @@ const info = (file) => {
         if (err) throw err;             
         arr.push(file.name.split('.').slice(0, -1).join('.'))
         arr.push(path.extname(file.name).slice(1));
-        arr.push(stats.size + 'b');          
+        arr.push(stats.size + 'B');          
         console.log(arr.join(' - ')); 
     })    
 };
