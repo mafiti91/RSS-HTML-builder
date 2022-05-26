@@ -5,28 +5,7 @@ fs.mkdir(path.join(__dirname, 'project-dist'), { recursive: true }, (err) => {
   if (err) throw err; }  
 );
 
-function change() {
-  fs.copyFile(path.join(__dirname, 'template.html'), path.join(__dirname, 'project-dist', 'index.html'), (err) => {
-    if (err) throw err;
-    fs.readFile(path.join(__dirname, 'project-dist', 'index.html'), 'utf8', (err, data) => {
-      if(err) throw err;
-      fs.readdir(path.join(__dirname, 'components'), {withFileTypes: true},(err, section) => {
-        if (err) throw err;
-        section.forEach((div) => {
-          fs.readFile(path.join(__dirname, 'components', div.name), 'utf8', (err, divContent) => {
-            if(err) throw err;
-            let divName = `{{${div.name.split('.')[0]}}}`;
-            data = data.replace(divName, divContent);
-            fs.writeFile(path.join(__dirname, 'project-dist', 'index.html'), data, (err) => {
-              if(err) throw err;
-            });
-          });
-        });
-      });
-    });
-  });
-}
-change();
+
 
 function style() {
   fs.writeFile(
@@ -73,3 +52,27 @@ function copy() {
     })
 }
 copy()
+
+
+function change() {
+  fs.copyFile(path.join(__dirname, 'template.html'), path.join(__dirname, 'project-dist', 'index.html'), (err) => {
+    if (err) throw err;
+    fs.readFile(path.join(__dirname, 'project-dist', 'index.html'), 'utf8', (err, data) => {
+      if(err) throw err;
+      fs.readdir(path.join(__dirname, 'components'), {withFileTypes: true},(err, section) => {
+        if (err) throw err;
+        section.forEach((div) => {
+          fs.readFile(path.join(__dirname, 'components', div.name), 'utf8', (err, divContent) => {
+            if(err) throw err;
+            let divName = `{{${div.name.split('.')[0]}}}`;
+            data = data.replace(divName, divContent);
+            fs.writeFile(path.join(__dirname, 'project-dist', 'index.html'), data, (err) => {
+              if(err) throw err;
+            });
+          });
+        });
+      });
+    });
+  });
+}
+change();
